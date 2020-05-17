@@ -21,8 +21,6 @@ Exam - 2 hours
 Performance Knowledge.
 Kubernetes Documentation.
 
-Keep the code - DEVOPS15 - handy while registering for the CKA or CKAD exams at Linux Foundation to get a 15% discount.
-
 Tips:
 1> k8.io Documentation
 2> Understand Concepts in Exam Curriculum (Link the Curriculum)
