@@ -1,6 +1,6 @@
 CKAD Notes
 
-References:
+# H1 References:
 https://nbtechsolutions.wordpress.com/2020/04/30/ckad-experience/
 https://medium.com/@ikaboubi/my-feedback-about-cka-and-ckad-e82a35585fe9
 https://codeburst.io/kubernetes-ckad-weekly-challenges-overview-and-tips-7282b36a2681
@@ -21,10 +21,12 @@ Exam - 2 hours
 Performance Knowledge.
 Kubernetes Documentation.
 
-Tips:
+Keep the code - DEVOPS15 - handy while registering for the CKA or CKAD exams at Linux Foundation to get a 15% discount.
+
+#H2 Tips:
 1> k8.io Documentation
 2> Understand Concepts in Exam Curriculum (Link the Curriculum)
-3> Be Goot at YAML - Take course in LA
+3> Be Good at YAML - Take course in LA
 4> Time Management:
    > nano editor - Document and Practice ShortCuts
    > kubectl alias
