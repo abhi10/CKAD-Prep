@@ -26,7 +26,7 @@ spec:
   - targetPort: 80
     port: 80
     nodePort: 30008
-  selectors:
+  selector:
     app: myapp
     type: front-end
 ```
