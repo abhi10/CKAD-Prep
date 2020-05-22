@@ -193,6 +193,7 @@ Change the deployment strategy to 'Recreate'
 ```
 =====================
 #H4 Jobs:
+=======
 Different Types of Workload:
 Long Term/Short Term
 - BatchProcessing
@@ -239,6 +240,7 @@ spec:
 ----------------
 
 #H4 CronJobs:
+=======
 Jobs which are scheduled.
 Example Definition:
 cronjob-definition.yamlOutputjob-definition.yaml
