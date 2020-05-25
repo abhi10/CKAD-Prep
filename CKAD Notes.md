@@ -270,6 +270,7 @@ docker run --entrypoint sleep2.0 ubuntu-sleeper 10
 Kubernetes - Commands and Arguments:
 
 pod-definiton.yml
+```
 apiVersion: v1
 kind: Pod
 metadata:
@@ -280,7 +281,7 @@ spec:
   image: ubuntu-sleeper
   command: ["sleep2.0"].  <=== ENTRYPOINT
   arg: ["10"]             <=== CMD
-
+```
 kubectl create -f pod-definition.yml
 
 ======
@@ -308,6 +309,7 @@ ConfigMaps:
 
 
 Imperative:
+----------
 kubectl create configmap
    <config-name> --from-literal=<key>=<value>
 
@@ -320,10 +322,12 @@ kubectl create configmap
 
 ----------------
 Declarative:
+--------
 
 Config Map Definition
 
 config-map.yaml
+```
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -331,13 +335,13 @@ metadata:
 data:
   APP_COLOR: blue
   APP_MODE: prod
-
+```
 kubectl create -f config-map.yaml
 ----------------
 
 kubectl get configmaps
 kubectl describe configmaps
-=======
+-------------------------------
 
 Pod Injection for a ConfigMap:
 config-map.yaml
@@ -350,8 +354,9 @@ data:
   APP_MODE: prod
 
 
-  ====
+------------------
 pod-definiton.yaml
+```
 apiVersion: v1
 kind: Pod
 metadata:
@@ -367,7 +372,7 @@ spec:
     envFrom:
       - configMapRef:
           name: app-config
-
+```
 kubectl create -f pod-definition.yaml
 
 ConfigMap in Pods:
@@ -390,7 +395,7 @@ volumes:
   configMap:
     name: app-config
 
-====================================================
+--------------------------
 
 Secrets:
 
@@ -430,9 +435,9 @@ echo -n 'mysql' | base64 <=== Encoding
 
 
 ----
-kubectl get secrets
-kubectl describe secrets
-kubectl get secret app-secret -o yaml
+> kubectl get secrets
+> kubectl describe secrets
+> kubectl get secret app-secret -o yaml
 
 How to decode secret values:
 echo -n 'bXlzcWw=' | base64 <== Decode
@@ -441,6 +446,7 @@ echo -n 'bXlzcWw=' | base64 <== Decode
 Inject ENV Variable into Pod , Secret here:
 
 pod-definiton.yaml
+```
 apiVersion: v1
 kind: Pod
 metadata:
@@ -456,7 +462,7 @@ spec:
     envFrom:
       - secretRef:
           name: app-config
-
+```
 Note: If Creating Secrets in Pods as Volume
 Each File is Created for a Secret
 cat /opt/app-secret-volumes/DB_Passwrd
@@ -471,12 +477,13 @@ Also the way kubernetes handles secrets. Such as:
 - A secret is only sent to a node if a pod on that node requires it.
 - Kubelet stores the secret into a tmpfs so that the secret is not written to disk storage.
 - Once the Pod that depends on the secret is deleted, kubelet will delete its local copy of the secret data as well.
-=======
+------------
 Practice Test:
+```
 kubectl create secret generic \
        db-secret --from-literal=DB_Host=sql01 \
        --from-literal=DB_User=root --from-literal=DB_Password=password123
-
+```
 ======
 
 Docker Security:
@@ -492,6 +499,7 @@ docker run --previliged ubuntu
 Security Context:
 
 Pod Definition: where Security Context is in scope of Pod
+```
 apiVersion: v1
 kind: Pod
 metadata:
@@ -504,9 +512,10 @@ spec:
     - name: ubuntu
       image: ubuntu
       command: ["sleep", "3600"]
-
+```
 --------
 Pod Definition: where Security Context is in scope of Container
+```
 apiVersion: v1
 kind: Pod
 metadata:
@@ -520,12 +529,11 @@ spec:
         runAsUser: 1000
         capabilities:
           add: ["MAC_ADMIN"]
-
-Note: Capabilties are only supported at the container level
-      and not at the Pod Level
-=======================================
+```
+Note: Capabilties are only supported at the container level and not at the Pod Level
+----------------------
 Service Accounts:
------------------
+================
 
 Two Types of Services in K8:
 USER Account    - By USERS
@@ -542,7 +550,7 @@ a Kubernetes Cluster hence simpliyfing the process of exporting a token for a se
 like Prometheus.
 
 
-Labs:
+**Labs:**
 Permissions added for newly created dashboard-sa account using RBAC:
 master $ cat /var/rbac/dashboard-sa-role-binding.yaml
 ---
@@ -587,6 +595,7 @@ Resource Requirements for Pods:
 - Disk
 
 pod-definiton.yaml
+```
 apiVersion: v1
 kind: Pod
 metadata:
@@ -606,13 +615,13 @@ spec:
       limits:
         memory: "2Gi"
         cpu: 2
-
+```
 CPU => Throttling happens
 Memory ==> Termination of Container
 --------------------
 LimitRange in that Namespace:
 MEMORY
-
+```
 apiVersion: v1
 kind: LimitRange
 metadata:
@@ -624,11 +633,11 @@ spec:
     defaultRequest:
       memory: 256Mi
     type: Container
-
+```
 
 ----------
 CPU:
-
+```
 apiVersion: v1
 kind: LimitRange
 metadata:
@@ -640,7 +649,7 @@ spec:
     defaultRequest:
       cpu: 0.5
     type: Container
-
-=====================
+```
+-----------------------
 
 Taints and Tolerations:
