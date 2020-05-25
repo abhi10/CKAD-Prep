@@ -76,3 +76,6 @@ spec:
 Labs
 ====
 - kubectl exec webapp cat /log/app.log
+- How does bounding happen beween pvc and pv.
+- How to limit bounding between them.
+-
